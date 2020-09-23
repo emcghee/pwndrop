@@ -24,9 +24,10 @@ var debug_log = flag.Bool("debug", false, "log debug output")
 var disable_autocert = flag.Bool("no-autocert", false, "disable automatic certificate retrieval")
 var disable_dns = flag.Bool("no-dns", false, "disable DNS nameserver")
 var show_help = flag.Bool("h", false, "show help")
+var log_file = flag.String("log", "pwndrop_log.txt", "log file path")
 
 func usage() {
-	fmt.Printf("usage: pwndrop [start|stop|install|remove|status] [-config <config_path>] [-debug] [-no-autocert] [-no-dns] [-h]\n\n")
+	fmt.Printf("usage: pwndrop [start|stop|install|remove|status] [-config <config_path>] [-log <log_path>] [-debug] [-no-autocert] [-no-dns] [-h]\n\n")
 }
 
 func main() {
@@ -77,6 +78,9 @@ func main() {
 		usage()
 		return
 	}
+
+	log.SetLogFile(*log_file)
+
 	if *cfg_path == "" {
 		*cfg_path = utils.ExecPath("pwndrop.ini")
 	}

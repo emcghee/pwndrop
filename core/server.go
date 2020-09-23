@@ -129,7 +129,7 @@ func NewServer(host string, port_plain int, port_tls int, enable_letsencrypt boo
 }
 
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	log.Debug("%s %s", r.Method, r.URL.Path)
+	log.Success("Webhit from %s\n\tRequest: %s %s\n\t%s", r.RemoteAddr, r.Method, r.URL.Path, r.UserAgent())
 
 	if !s.isWebDavRequest(r) {
 
@@ -217,7 +217,7 @@ func (s *Server) setupRouter() {
 }
 
 func (s *Server) handleNotFound(w http.ResponseWriter, r *http.Request) {
-	log.Debug("%s %s", r.Method, r.URL.Path)
+	log.Success("Webhit from %s\n\tRequest: %s %s\n\t%s", r.RemoteAddr, r.Method, r.URL.Path, r.UserAgent())
 }
 
 func (s *Server) GetFile(url string) (*storage.DbFile, int, error) {
